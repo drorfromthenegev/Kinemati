@@ -1,3 +1,11 @@
+global plotx=false;
+global plotv=false;
+global plota=false;
+global extx=false;
+global extv=false;
+global exta=false;
+
+
 function varargout = KinematiUI(varargin)
 % KINEMATIUI MATLAB code for KinematiUI.fig
 %      KINEMATIUI, by itself, creates a new KINEMATIUI or raises the existing
@@ -80,7 +88,7 @@ function plotx_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of plotx
-
+plotx=get(hObject,'Value')
 
 % --- Executes on button press in plotv.
 function plotv_Callback(hObject, eventdata, handles)
@@ -89,7 +97,7 @@ function plotv_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of plotv
-
+plotv=get(hObject,'Value')
 
 % --- Executes on button press in plota.
 function plota_Callback(hObject, eventdata, handles)
@@ -98,7 +106,7 @@ function plota_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of plota
-
+plota=get(hObject,'Value')
 
 % --- Executes on button press in extx.
 function extx_Callback(hObject, eventdata, handles)
@@ -107,7 +115,7 @@ function extx_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of extx
-
+extx=get(hObject,'Value')
 
 % --- Executes on button press in extv.
 function extv_Callback(hObject, eventdata, handles)
@@ -116,7 +124,7 @@ function extv_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of extv
-
+extv=get(hObject,'Value')
 
 % --- Executes on button press in exta.
 function exta_Callback(hObject, eventdata, handles)
@@ -125,6 +133,7 @@ function exta_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of exta
+exta=get(hObject,'Value')
 
 
 % --- Executes on button press in StartButton.
@@ -132,8 +141,16 @@ function StartButton_Callback(hObject, eventdata, handles)
 % hObject    handle to StartButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-
+[FileName,PathName,~] = uigetfile();
+timetablex=csvread(PathName);
+xvals=timetablex(2,:)
+tvals=timetablex(1,:)
+if(ValidateData(xvals,tvals))
+   vvals=FirstDerivative(xvals,tvals)
+   avals=SecondDerivative(xvals,tvals)
+    %TODO: ADD CODE FOR PLOTTING AND OUTPUTING EXTREMUMS
+   
+end
 
 function resultstxt_Callback(hObject, eventdata, handles)
 % hObject    handle to resultstxt (see GCBO)
